@@ -1,7 +1,9 @@
 package com.example.app07;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +15,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtUusario;
     private EditText txtContraseña;
     private Button btnIngresar;
+    private Button btnFinalizar;
     private Usuarios user= new Usuarios();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnFinalizar = (Button) findViewById(R.id.btnFinalizar);
         iniciar();
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder confirmar = new AlertDialog.Builder(MainActivity.this);
+                confirmar.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+
+                    }
+                });
+confirmar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+});
+confirmar.show();
+            }
+        });
     }
 
     private void iniciar(){
@@ -62,4 +86,5 @@ public class MainActivity extends AppCompatActivity {
         user.setEmail(getResources().getString(R.string.email));
 
     }
+
 }
